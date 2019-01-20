@@ -33,7 +33,7 @@ for ext in extensions:
     bot.load_extension(ext)
 
 # errors
-@bot.event
+#@bot.event
 async def on_command_error(ctx, error):
     # todo: nicer error handling for certain errors
     await ctx.send("An error occurred: "+str(error))
