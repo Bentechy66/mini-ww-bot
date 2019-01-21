@@ -9,20 +9,20 @@ class UserCommands:
     def __global_check(self, ctx):
         if not isinstance(ctx.cog, self.__class__):
             return True # only applies to these commands
-        return discord.utils.get(ctx.author.roles, id=conf['role_ids'].getint('participant'))
+        return discord.utils.get(ctx.author.roles, id=conf['ids'].getint('participant'))
 
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command()
-    async def create(self, ctx, name, *people):
+    async def create(self, ctx, name, *people: discord.Member):
         """Create a Conspiracy Channel
 
         Create a new conspiracy channel with as many people as you want.
         Usage: `]create channel-name @person1 @person2 @person3...`
         """
-        await ctx.send("creating cc {} with people {}".format(name, ", ".join(people)))
-        await ccs.create_cc(self.bot,name,None,None)
+        await ctx.send("creating cc {} with people {}".format(name, ", ".join([str(p) for p in people])))
+        await ccs.create_cc(self.bot,name,ctx.author,list(people)+[ctx.author])
     
     @commands.command()
     async def add(self, ctx, *people):
@@ -50,12 +50,13 @@ class UserCommands:
         """Lists people in a conspiracy channel
 
         Lists all the people currently in the conspiracy channel it was sent in.
-        If the conspiracy channel is not a hidden channel then the owner will
-        be listed as well.
         Usage: `]list`
         """
         await ctx.send("(TODO) listing".format(name, ", ".join(people)))
 
+    @commands.command()
+    async def owner(self, ctx):
+        await ctx.send(str(ccs.get_cc_owner(ctx.channel)))
 
 def setup(bot):
     # extension setup function

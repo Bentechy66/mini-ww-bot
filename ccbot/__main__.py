@@ -1,5 +1,6 @@
 import os
 import sys
+import traceback
 
 import logging
 logging.basicConfig(level=logging.INFO, format='%(levelname)s::%(name)s@%(asctime)s : %(message)s')
@@ -14,8 +15,6 @@ token = os.getenv("CCBOT_TOKEN",None)
 if token is None:
     sys.exit("Please set envvar CCBOT_TOKEN to your bot's token")
 
-from config import conf
-print(conf['role_ids']['admin'])
 
 @bot.event
 async def on_ready():
@@ -33,9 +32,11 @@ for ext in extensions:
     bot.load_extension(ext)
 
 # errors
-#@bot.event
+@bot.event
 async def on_command_error(ctx, error):
     # todo: nicer error handling for certain errors
-    await ctx.send("An error occurred: "+str(error))
+    errstr = "".join(traceback.format_exception(type(error), error, error.__traceback__))
+    logger.error("Error in command {}:\n{}".format(ctx.command, errstr))
+    await ctx.send("An error occured: {} - {}\nPlease see console for details.".format(error.__class__.__name__, str(error)))
 
 bot.run(token)

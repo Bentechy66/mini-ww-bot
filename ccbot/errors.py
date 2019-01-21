@@ -3,3 +3,5 @@ from discord.ext import commands
 
 class NoSuchChannel(Exception):
     pass
+class OwnerNotFound(Exception):
+    pass
