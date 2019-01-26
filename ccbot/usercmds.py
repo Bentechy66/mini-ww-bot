@@ -21,7 +21,7 @@ class UserCommands:
         Create a new conspiracy channel with as many people as you want.
         Usage: `]create channel-name @person1 @person2 @person3...`
         """
-        await ctx.send("creating cc {} with people {}".format(name, ", ".join([str(p) for p in people])))
+        await ctx.send("creating cc {} with people {}".format(name, ", ".join(str(p) for p in people)))
         await ccs.create_cc(self.bot,name,ctx.author,list(people)+[ctx.author])
     
     @commands.command()
@@ -32,7 +32,7 @@ class UserCommands:
         This is only available to the owner of that conspiracy channel.
         Usage: `]add @person1 @person2 @person3...`
         """
-        await ctx.send("(TODO) adding people {}".format(", ".join(people)))
+        await ctx.send("(TODO) adding people {}".format(", ".join(str(p) for p in people)))
     
     @commands.command()
     async def remove(self, ctx, *people):
@@ -43,7 +43,7 @@ class UserCommands:
         The owner of a conspiracy channel cannot be removed from that channel.
         Usage: `]remove @person1 @person2 @person3...`
         """
-        await ctx.send("(TODO) removing people {}".format(", ".join(people)))
+        await ctx.send("(TODO) removing people {}".format(", ".join(str(p) for p in people)))
     
     @commands.command(name="list")
     async def _list(self, ctx, *people):
@@ -52,10 +52,11 @@ class UserCommands:
         Lists all the people currently in the conspiracy channel it was sent in.
         Usage: `]list`
         """
-        await ctx.send("(TODO) listing"
+        await ctx.send("(TODO) listing")
 
     @commands.command()
     async def owner(self, ctx):
+        """[TESTING ONLY] prints the owner of the current cc"""
         await ctx.send(str(ccs.get_cc_owner(ctx.channel)))
 
 def setup(bot):
