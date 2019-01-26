@@ -32,7 +32,7 @@ class UserCommands:
         This is only available to the owner of that conspiracy channel.
         Usage: `]add @person1 @person2 @person3...`
         """
-        await ctx.send("(TODO) adding people {}".format(name, ", ".join(people)))
+        await ctx.send("(TODO) adding people {}".format(", ".join(people)))
     
     @commands.command()
     async def remove(self, ctx, *people):
@@ -43,7 +43,7 @@ class UserCommands:
         The owner of a conspiracy channel cannot be removed from that channel.
         Usage: `]remove @person1 @person2 @person3...`
         """
-        await ctx.send("(TODO) removing people {}".format(name, ", ".join(people)))
+        await ctx.send("(TODO) removing people {}".format(", ".join(people)))
     
     @commands.command(name="list")
     async def _list(self, ctx, *people):
@@ -52,7 +52,7 @@ class UserCommands:
         Lists all the people currently in the conspiracy channel it was sent in.
         Usage: `]list`
         """
-        await ctx.send("(TODO) listing".format(name, ", ".join(people)))
+        await ctx.send("(TODO) listing"
 
     @commands.command()
     async def owner(self, ctx):
