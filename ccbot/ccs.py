@@ -11,10 +11,14 @@ def fetch_guild(bot):
 def fetch_category(bot):
     return fetch_guild(bot).get_channel(conf['ids'].getint('category'))
 
-def is_cc(guild,channel):
-    pass # is that channel a cc?
+def is_cc(channel):
+    # is that channel a cc?
+    # for now we see if it's in the ccs category.
+    # this may change later
+    return channel.category_id == conf['ids'].getint('category')
 
 def get_cc_owner(channel):
+    if not is_cc(channel): raise errors.NotACc()
     for target, ows in channel.overwrites:
         if isinstance(target, discord.Member) and ows.send_messages:
             return target
