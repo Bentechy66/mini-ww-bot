@@ -25,6 +25,18 @@ class UserCommands:
         await ccs.create_cc(self.bot,name,ctx.author,list(people)+[ctx.author])
     
     @commands.command()
+    async def create_hidden(self, ctx, name, *people: discord.Member):
+        """Create a Hidden Conspiracy Channel
+
+        Create a new hidden conspiracy channel with as many people as you want.
+        This works the same as ]create, except the people in the CC don't get told
+        who the creator of the CC is.
+        Usage: `]create channel-name @person1 @person2 @person3...`
+        """
+        await ctx.send("creating hidden cc {} with people {}".format(name, ", ".join(str(p) for p in people)))
+        await ccs.create_cc(self.bot,name,ctx.author,list(people)+[ctx.author],True)
+    
+    @commands.command()
     async def add(self, ctx, *people: discord.Member):
         """Adds people to a conspiracy channel
 

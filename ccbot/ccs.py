@@ -5,6 +5,8 @@ from discord.ext import commands
 from config import conf
 import errors
 
+import random
+
 def fetch_guild(bot):
     return discord.utils.get(bot.guilds, id=conf['ids'].getint('guild'))
 
@@ -55,7 +57,7 @@ def get_overwrites(guild,people,owner):
     overwrites[owner].send_messages = True # they would have this anyway so we use it to store the owner
     return overwrites
 
-async def create_cc(bot,name,owner,people):
+async def create_cc(bot,name,owner,people,hidden=False):
     # people should contain owner
     if owner not in people:
         people.append(owner)
@@ -70,7 +72,15 @@ async def create_cc(bot,name,owner,people):
         overwrites=overwrites,
         category=category
     )
-    await channel.send("TODO: cc message")
+
+    people_mentions = [p.mention for p in people]
+    random.shuffle(people_mentions)
+    
+    if hidden:
+        msg = "A new CC has been created!\n**Members:**\n{}".format("\n".join(people_mentions))
+    else:
+        msg = "{} has created a new CC!\n**Members:**\n{}".format(owner.mention,"\n".join(people_mentions))
+    await channel.send(msg)
 
 async def add_to_cc(channel, people):
     if not is_cc(channel):
