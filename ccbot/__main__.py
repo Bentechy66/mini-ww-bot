@@ -21,7 +21,7 @@ async def on_ready():
     logger.info("Logged in!")
 
 extensions = (
-    "usercmds",
+    "cc_cmds",
 )
 
 @bot.command()

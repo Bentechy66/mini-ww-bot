@@ -4,7 +4,7 @@ from discord.ext import commands
 from config import conf
 import ccs
 
-class UserCommands:
+class CCCommands:
     # Cog class
     def __global_check(self, ctx):
         if not isinstance(ctx.cog, self.__class__):
@@ -91,4 +91,4 @@ class UserCommands:
 
 def setup(bot):
     # extension setup function
-    bot.add_cog(UserCommands(bot))
+    bot.add_cog(CCCommands(bot))
