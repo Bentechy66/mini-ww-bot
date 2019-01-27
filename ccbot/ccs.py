@@ -83,3 +83,18 @@ async def add_to_cc(channel, people):
         await channel.set_permissions(person, read_messages=True)
         changed.append(person)
     return changed
+
+async def remove_from_cc(channel, people):
+    if not is_cc(channel):
+        raise errors.NotACc()
+    changed = []
+    current_people = get_cc_people(channel)
+    owner = get_cc_owner(channel)
+    for person in people:
+        if person not in current_people:
+            continue
+        if person == owner:
+            continue # can't remove owner
+        await channel.set_permissions(person, overwrite=None)
+        changed.append(person)
+    return changed

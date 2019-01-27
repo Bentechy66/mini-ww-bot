@@ -12,5 +12,5 @@ try:
     with open(conffile) as f:
         conf.read_file(f)
 except FileNotFoundError:
-    logger.critical("File not found: {} - ensure it is in your current directory".format(conffile))
+    logger.critical("File not found: {} - ensure it is in your current directory or update envvar CCBOT_CONFIGFILE".format(conffile))
     sys.exit(1)

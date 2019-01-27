@@ -46,7 +46,7 @@ class UserCommands:
         await ctx.send(msg)
     
     @commands.command()
-    async def remove(self, ctx, *people):
+    async def remove(self, ctx, *people: discord.Member):
         """Removes people from a conspiracy channel
 
         Removes any number of people from the conspiracy channel it was sent in.
@@ -54,16 +54,28 @@ class UserCommands:
         The owner of a conspiracy channel cannot be removed from that channel.
         Usage: `]remove @person1 @person2 @person3...`
         """
-        await ctx.send("(TODO) removing people {}".format(", ".join(str(p) for p in people)))
+        #await ctx.send("(TODO) removing people {}".format(", ".join(str(p) for p in people)))
+        ccs.check_cc_owner(ctx)
+        removed = await ccs.remove_from_cc(ctx.channel, people)
+        if len(removed) == 0:
+            msg = "I didn't need to remove anyone!"
+        elif len(removed) == 1:
+            msg = "{0.mention} has been removed from {1.mention}".format(removed[0], ctx.channel)
+        else:
+            all_mentions = [a.mention for a in removed]
+            people = ", ".join(all_mentions[:-1]) + " and " + all_mentions[-1]
+            msg = "{0} have all been removed from {1.mention}".format(people, ctx.channel)
+        await ctx.send(msg)
     
     @commands.command(name="list")
-    async def _list(self, ctx, *people):
+    async def _list(self, ctx):
         """Lists people in a conspiracy channel
 
         Lists all the people currently in the conspiracy channel it was sent in.
         Usage: `]list`
         """
-        await ctx.send("(TODO) listing")
+        people = ccs.get_cc_people(ctx.channel)
+        await ctx.send("\n".join(m.mention for m in people))
 
     @commands.command()
     async def owner(self, ctx):
