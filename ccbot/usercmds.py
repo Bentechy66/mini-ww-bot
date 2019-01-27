@@ -25,14 +25,25 @@ class UserCommands:
         await ccs.create_cc(self.bot,name,ctx.author,list(people)+[ctx.author])
     
     @commands.command()
-    async def add(self, ctx, *people):
+    async def add(self, ctx, *people: discord.Member):
         """Adds people to a conspiracy channel
 
         Adds any number of people to the conspiracy channel it was sent in.
         This is only available to the owner of that conspiracy channel.
         Usage: `]add @person1 @person2 @person3...`
         """
-        await ctx.send("(TODO) adding people {}".format(", ".join(str(p) for p in people)))
+        # not using ext.commands checks because that effects the help system
+        ccs.check_cc_owner(ctx)
+        added = await ccs.add_to_cc(ctx.channel, people)
+        if len(added) == 0:
+            msg = "I didn't need to add anyone!"
+        elif len(added) == 1:
+            msg = "Welcome {0.mention} to {1.mention}".format(added[0], ctx.channel)
+        else:
+            all_mentions = [a.mention for a in added]
+            people = ", ".join(all_mentions[:-1]) + " and " + all_mentions[-1]
+            msg = "Welcome {0} to {1.mention}".format(people, ctx.channel)
+        await ctx.send(msg)
     
     @commands.command()
     async def remove(self, ctx, *people):

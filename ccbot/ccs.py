@@ -18,14 +18,30 @@ def is_cc(channel):
     return channel.category_id == conf['ids'].getint('category')
 
 def get_cc_owner(channel):
-    if not is_cc(channel): raise errors.NotACc()
+    if not is_cc(channel):
+        raise errors.NotACc()
     for target, ows in channel.overwrites:
         if isinstance(target, discord.Member) and ows.send_messages:
             return target
     raise errors.OwnerNotFound()
 
 def get_cc_people(channel):
-    pass # get all people in a cc including owner
+    # returns list of member who are in cc (includes owner)
+    if not is_cc(channel):
+        raise errors.NotACc()
+    res = []
+    for target, perms in channel.overwrites:
+        if isinstance(target, discord.Member):
+            allow, deny = perms.pair()
+            if allow.read_messages:
+                res.append(target)
+    return res
+
+def check_cc_owner(ctx):
+    # not using ext.commands checks because that effects the help system
+    owner = get_cc_owner(ctx.channel)
+    if ctx.author != owner:
+        raise errors.NotOwner()
 
 def get_overwrites(guild,people,owner):
     overwrites = {
@@ -56,3 +72,14 @@ async def create_cc(bot,name,owner,people):
     )
     await channel.send("TODO: cc message")
 
+async def add_to_cc(channel, people):
+    if not is_cc(channel):
+        raise errors.NotACc()
+    changed = []
+    current_people = get_cc_people(channel)
+    for person in people:
+        if person in current_people:
+            continue
+        await channel.set_permissions(person, read_messages=True)
+        changed.append(person)
+    return changed
