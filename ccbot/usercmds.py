@@ -89,11 +89,6 @@ class UserCommands:
         people = ccs.get_cc_people(ctx.channel)
         await ctx.send("\n".join(m.mention for m in people))
 
-    @commands.command()
-    async def owner(self, ctx):
-        """[TESTING ONLY] prints the owner of the current cc"""
-        await ctx.send(str(ccs.get_cc_owner(ctx.channel)))
-
 def setup(bot):
     # extension setup function
     bot.add_cog(UserCommands(bot))

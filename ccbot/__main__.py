@@ -28,10 +28,6 @@ extensions = (
 async def ping(ctx):
     await ctx.send("pong")
 
-@bot.command()
-async def stop(ctx):
-    raise SystemExit()
-
 for ext in extensions:
     bot.load_extension(ext)
 
