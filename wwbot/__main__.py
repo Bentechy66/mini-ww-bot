@@ -39,4 +39,5 @@ async def on_command_error(ctx, error):
     logger.error("Error in command {}:\n{}".format(ctx.command, errstr))
     await ctx.send("An error occured: {} - {}\nPlease see console for details.".format(error.__class__.__name__, str(error)))
 
-bot.run(token)
+if __name__ == "__main__":
+    bot.run(token)
