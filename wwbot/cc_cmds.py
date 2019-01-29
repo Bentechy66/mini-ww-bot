@@ -9,7 +9,7 @@ class CCCommands:
     def __global_check(self, ctx):
         if not isinstance(ctx.cog, self.__class__):
             return True # only applies to these commands
-        return discord.utils.get(ctx.author.roles, id=conf['ids'].getint('participant'))
+        return (discord.utils.get(ctx.author.roles, id=conf['ids'].getint('participant')) is not None)
 
     def __init__(self, bot):
         self.bot = bot

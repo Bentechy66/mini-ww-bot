@@ -13,3 +13,6 @@ class NotACc(Exception):
 class NotOwner(commands.CommandError):
     # you are not the owner of this cc
     pass
+class EmojiInUse(Exception):
+    # that emoji is already being used
+    pass
