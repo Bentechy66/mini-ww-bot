@@ -1,8 +1,8 @@
 import discord
 from discord.ext import commands
 
-from config import conf
-import ccs
+from wwbot.config import conf
+from wwbot import ccs
 
 class CCCommands:
     # Cog class

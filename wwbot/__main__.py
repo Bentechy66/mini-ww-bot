@@ -22,14 +22,20 @@ async def on_ready():
 
 extensions = (
     "cc_cmds",
+    "signup",
 )
 
 @bot.command()
 async def ping(ctx):
     await ctx.send("pong")
 
+@commands.is_owner()
+@bot.command()
+async def stop(ctx):
+    raise SystemExit()
+
 for ext in extensions:
-    bot.load_extension(ext)
+    bot.load_extension("wwbot."+ext)
 
 # errors
 @bot.event

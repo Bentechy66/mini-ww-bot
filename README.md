@@ -11,7 +11,7 @@ To initialise the database, run `python3 housekeeping.py create_tables`
 
 To run the bot, the envvar `WWBOT_TOKEN` must be set to your discord bot token. This is required and the bot will fail if you don't do this.
 
-Once you've set everything up correctly, you can then run the bot with `python3 wwbot` from the root dir.
+Once you've set everything up correctly, you can then run the bot with `python3 -m wwbot` from the root dir.
 
 ### The config file
 By default, this will look for a file called `config.ini` in your current working directory. If you want to change this, set the envvar `WWBOT_CONFIGFILE` to the path to your config file.

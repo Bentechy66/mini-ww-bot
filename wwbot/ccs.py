@@ -2,8 +2,8 @@
 import discord
 from discord.ext import commands
 
-from config import conf
-import errors
+from wwbot.config import conf
+from wwbot import errors
 
 import random
 
