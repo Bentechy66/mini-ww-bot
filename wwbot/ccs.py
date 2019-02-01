@@ -4,11 +4,9 @@ from discord.ext import commands
 
 from wwbot.config import conf
 from wwbot import errors
+from wwbot.util import fetch_guild
 
 import random
-
-def fetch_guild(bot):
-    return discord.utils.get(bot.guilds, id=conf['ids'].getint('guild'))
 
 def fetch_category(bot):
     return fetch_guild(bot).get_channel(conf['ids'].getint('category'))
