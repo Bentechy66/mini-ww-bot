@@ -49,10 +49,10 @@ def set_game_phase(new):
     global __GAME_PHASE
     try:
         real_new = int(new)
-        GamePhases(real_new)
+        gp_new = GamePhases(real_new)
     except ValueError as e:
         raise ValueError("Invalid game phase: must be integer, must be valid game phase") from e
-    __GAME_PHASE = real_new
+    __GAME_PHASE = gp_new.value
 
 def needs_game_phase(gp):
     def predicate(ctx):
