@@ -13,7 +13,12 @@ class CCCommands:
 
     @needs_game_phase(GamePhases.GAME)
     @chk_participant
-    @commands.command()
+    @commands.group(invoke_without_command=True)
+    async def cc(self, ctx):
+        # nothing
+        await ctx.send("You need to use a subcommand, see the help.")
+    
+    @cc.command()
     async def create(self, ctx, name, *people: discord.Member):
         """Create a Conspiracy Channel
 
@@ -23,9 +28,7 @@ class CCCommands:
         await ctx.send("creating cc {} with people {}".format(name, ", ".join(str(p) for p in people)))
         await ccs.create_cc(self.bot,name,ctx.author,list(people)+[ctx.author])
     
-    @needs_game_phase(GamePhases.GAME)
-    @chk_participant
-    @commands.command()
+    @cc.command()
     async def create_hidden(self, ctx, name, *people: discord.Member):
         """Create a Hidden Conspiracy Channel
 
@@ -37,9 +40,7 @@ class CCCommands:
         await ctx.send("creating hidden cc {} with people {}".format(name, ", ".join(str(p) for p in people)))
         await ccs.create_cc(self.bot,name,ctx.author,list(people)+[ctx.author],True)
 
-    @needs_game_phase(GamePhases.GAME)
-    @chk_participant    
-    @commands.command()
+    @cc.command()
     async def add(self, ctx, *people: discord.Member):
         """Adds people to a conspiracy channel
 
@@ -60,9 +61,7 @@ class CCCommands:
             msg = "Welcome {0} to {1.mention}".format(people, ctx.channel)
         await ctx.send(msg)
     
-    @needs_game_phase(GamePhases.GAME)
-    @chk_participant
-    @commands.command()
+    @cc.command()
     async def remove(self, ctx, *people: discord.Member):
         """Removes people from a conspiracy channel
 
@@ -84,9 +83,7 @@ class CCCommands:
             msg = "{0} have all been removed from {1.mention}".format(people, ctx.channel)
         await ctx.send(msg)
 
-    @needs_game_phase(GamePhases.GAME)
-    @chk_participant
-    @commands.command(name="list")
+    @cc.command(name="list")
     async def _list(self, ctx):
         """Lists people in a conspiracy channel
 
