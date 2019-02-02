@@ -3,17 +3,16 @@ from discord.ext import commands
 
 from wwbot.config import conf
 from wwbot import ccs
+from wwbot.game_phase import needs_game_phase, GamePhases
+from wwbot.permissions import chk_participant
 
 class CCCommands:
     # Cog class
-    def __global_check(self, ctx):
-        if not isinstance(ctx.cog, self.__class__):
-            return True # only applies to these commands
-        return (discord.utils.get(ctx.author.roles, id=conf['ids'].getint('participant')) is not None)
-
     def __init__(self, bot):
         self.bot = bot
 
+    @needs_game_phase(GamePhases.GAME)
+    @chk_participant
     @commands.command()
     async def create(self, ctx, name, *people: discord.Member):
         """Create a Conspiracy Channel
@@ -24,6 +23,8 @@ class CCCommands:
         await ctx.send("creating cc {} with people {}".format(name, ", ".join(str(p) for p in people)))
         await ccs.create_cc(self.bot,name,ctx.author,list(people)+[ctx.author])
     
+    @needs_game_phase(GamePhases.GAME)
+    @chk_participant
     @commands.command()
     async def create_hidden(self, ctx, name, *people: discord.Member):
         """Create a Hidden Conspiracy Channel
@@ -35,7 +36,9 @@ class CCCommands:
         """
         await ctx.send("creating hidden cc {} with people {}".format(name, ", ".join(str(p) for p in people)))
         await ccs.create_cc(self.bot,name,ctx.author,list(people)+[ctx.author],True)
-    
+
+    @needs_game_phase(GamePhases.GAME)
+    @chk_participant    
     @commands.command()
     async def add(self, ctx, *people: discord.Member):
         """Adds people to a conspiracy channel
@@ -57,6 +60,8 @@ class CCCommands:
             msg = "Welcome {0} to {1.mention}".format(people, ctx.channel)
         await ctx.send(msg)
     
+    @needs_game_phase(GamePhases.GAME)
+    @chk_participant
     @commands.command()
     async def remove(self, ctx, *people: discord.Member):
         """Removes people from a conspiracy channel
@@ -78,7 +83,9 @@ class CCCommands:
             people = ", ".join(all_mentions[:-1]) + " and " + all_mentions[-1]
             msg = "{0} have all been removed from {1.mention}".format(people, ctx.channel)
         await ctx.send(msg)
-    
+
+    @needs_game_phase(GamePhases.GAME)
+    @chk_participant
     @commands.command(name="list")
     async def _list(self, ctx):
         """Lists people in a conspiracy channel
