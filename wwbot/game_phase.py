@@ -7,9 +7,14 @@
 # 4 - post-game. Very similar to #0.
 
 # use game_phase() to get the current game phase, and set_game_phase(new) to set it.
-# 
+# GamePhases is an enum for convienience.
+# needs_game_phase is a commands check that will only work in a certain game phase.
+
+import discord
+from discord.ext import commands
 
 from wwbot.config import conf
+import wwbot.errors
 import atexit
 from enum import IntEnum
 
@@ -48,3 +53,12 @@ def set_game_phase(new):
     except ValueError as e:
         raise ValueError("Invalid game phase: must be integer, must be valid game phase") from e
     __GAME_PHASE = real_new
+
+def needs_game_phase(gp):
+    def predicate(ctx):
+        current = game_phase()
+        if current != gp:
+            raise wwbot.errors.WrongGamePhase(gp, current)
+        else:
+            return True
+    return commands.check(predicate)
