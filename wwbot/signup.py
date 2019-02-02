@@ -3,7 +3,7 @@ from discord.ext import commands
 
 from wwbot import errors
 from wwbot.util import is_emoji_str, fetch_guild
-
+from wwbot.game_phase import needs_game_phase, GamePhases
 from wwbot.db import db, Player
 
 def signup_or_change(member, emoji):
@@ -35,6 +35,7 @@ class SignupCmds:
     def __init__(self, bot):
         self.bot=bot
 
+    @needs_game_phase(GamePhases.SIGNUP)
     @commands.command()
     async def signup(self, ctx, emoji):
         if not is_emoji_str(emoji):
