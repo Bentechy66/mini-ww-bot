@@ -15,7 +15,7 @@ class KillQCmds:
         self.bot = bot
     
     @needs_game_phase(GamePhases.GAME)
-    @chk_gamemaster
+    @chk_gamemaster()
     @commands.group()
     async def killq(self, ctx):
         """Kill Queue management commands

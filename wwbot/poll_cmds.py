@@ -10,7 +10,7 @@ class PollCmds():
         self.bot = bot
 
     @needs_game_phase(GamePhases.GAME)
-    @chk_gamemaster
+    @chk_gamemaster()
     @commands.group()
     async def poll(self, ctx):
         """All commands to do with polls.

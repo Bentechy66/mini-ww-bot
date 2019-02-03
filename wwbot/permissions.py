@@ -15,17 +15,19 @@ def is_gamemaster(member):
     gm_role = discord.utils.get(member.roles, id=gamemaster)
     return gm_role is not None
 
-@commands.check
-def chk_participant(ctx):
-    if is_participant(ctx.author):
-        return True
-    else:
-        raise errors.NeedsParticipant()
+def chk_participant():
+    def predicate(ctx):
+        if is_participant(ctx.author):
+            return True
+        else:
+            raise errors.NeedsParticipant()
+    return commands.check(predicate)
 
-@commands.check
-def chk_gamemaster(ctx):
-    if is_gamemaster(ctx.author):
-        return True
-    else:
-        raise errors.NeedsGM()
+def chk_gamemaster():
+    def predicate(ctx):
+        if is_gamemaster(ctx.author):
+            return True
+        else:
+            raise errors.NeedsGM()
+    return commands.check(predicate)
 

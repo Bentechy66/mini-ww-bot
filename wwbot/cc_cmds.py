@@ -12,7 +12,7 @@ class CCCommands:
         self.bot = bot
 
     @needs_game_phase(GamePhases.GAME)
-    @chk_participant
+    @chk_participant()
     @commands.group(invoke_without_command=True)
     async def cc(self, ctx):
         # nothing
