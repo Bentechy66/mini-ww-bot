@@ -25,6 +25,7 @@ extensions = (
     "signup",
     "poll_cmds",
     "killq",
+    "game_phase_cmds",
 )
 
 @bot.command()
