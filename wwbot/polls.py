@@ -19,12 +19,14 @@ async def create_poll(ch, options):
     # options should have properties discord_id and emoji
     poll = Poll.create(channel=ch.id)
     await ch.send("Poll #`{}`".format(poll.id))
+    msgids = []
     for chunk in chunks(options, 20):
         # chunk is a list of 20 Players from db
         pollmsg = await ch.send("\n".join("{0.emoji} - <@{0.discord_id}>".format(opt) for opt in chunk))
-        PollMessage.create(poll=poll, discord_id=pollmsg.id)
+        msgids.append({"discord_id":pollmsg.id,"poll":poll})
         for p in chunk:
             await pollmsg.add_reaction(p.emoji)
+    PollMessage.insert_many(msgids).execute()
 
 async def close_poll(bot, pollid):
     guild = fetch_guild(bot)
