@@ -21,7 +21,10 @@ class PollMessage(BaseModel):
     discord_id      = IntegerField(unique=True) # discord id of the message in question
     poll            = ForeignKeyField(Poll, backref="messages")
 
+class KillQEntry(BaseModel):
+    discord_id      = IntegerField(unique=True)
+
 def create_tables():
     with db:
         print("Creating database tables in {}...".format(conf['database']['filename']))
-        db.create_tables([Player, Poll, PollMessage])
+        db.create_tables([Player, Poll, PollMessage, KillQEntry])
