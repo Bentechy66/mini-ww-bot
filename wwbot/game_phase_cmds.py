@@ -8,7 +8,7 @@ class GamePhaseCmds:
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.group()
+    @commands.group(invoke_without_command=True)
     async def gamephase(self, ctx):
         """Returns the current game phase of the system."""
         await ctx.send("The current game phase is `{0.name}` ({0.value}).".format(GamePhases(game_phase())))

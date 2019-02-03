@@ -3,23 +3,31 @@ from discord.ext import commands
 
 from wwbot.game_phase import GamePhases
 
-class NoSuchChannel(Exception):
-    # channel or category does not exist
+class WWBotException(commands.CommandError):
+    """base exception for all wwbot stuff"""
+    def __str__(self):
+        if self.__doc__ is not None:
+            return self.__doc__
+        else:
+            return super().__str__()
+
+class NoSuchChannel(WWBotException):
+    """Channel or category does not exist"""
     pass
-class OwnerNotFound(Exception):
-    # could not find cc owner
+class OwnerNotFound(WWBotException):
+    """Could not find CC owner"""
     pass
-class NotACc(Exception):
-    # the requested channel is not a CC
+class NotACc(WWBotException):
+    """The requested channel is not a CC"""
     pass
-class NotOwner(commands.CommandError):
-    # you are not the owner of this cc
+class NotOwner(WWBotException):
+    """You are not the owner of this CC"""
     pass
-class EmojiInUse(Exception):
-    # that emoji is already being used
+class EmojiInUse(WWBotException):
+    """That emoji is already being used"""
     pass
 
-class WrongGamePhase(commands.CheckFailure):
+class WrongGamePhase(commands.CheckFailure, WWBotException):
     # wrong game phase.
     def __init__(self, needs, current):
         self.needs = GamePhases(needs)
@@ -28,13 +36,12 @@ class WrongGamePhase(commands.CheckFailure):
         fstr = "Wrong game phase! We needed `{0.name}` ({0.value}) but instead we are on `{1.name}` ({1.value})."
         return fstr.format(self.needs, self.current)
 
-class NoSuchPoll(Exception):
-    # that poll doesn't exist
+class NoSuchPoll(WWBotException):
+    """That poll doesn't exist."""
     pass
-
-class NeedsGM(commands.CheckFailure):
-    # you need to be a gamemaster to do that
+class NeedsGM(commands.CheckFailure, WWBotException):
+    """You need to be a Game Master to do that."""
     pass
-class NeedsParticipant(commands.CheckFailure):
-    # you need to be a participant
+class NeedsParticipant(commands.CheckFailure, WWBotException):
+    """you need to be a participant"""
     pass
