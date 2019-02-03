@@ -14,9 +14,8 @@ class Player(BaseModel):
     discord_id      = IntegerField(unique=True) 
     emoji           = CharField(unique=True)   # don't worry about length, sqlite doesn't care anyway
 
-# do it as 2 tables in case we need poll-wide info in future
 class Poll(BaseModel):
-    pass # no data here needed yet, other than default id
+    channel         = IntegerField()
 
 class PollMessage(BaseModel):
     discord_id      = IntegerField(unique=True) # discord id of the message in question
