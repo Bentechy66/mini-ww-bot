@@ -32,12 +32,9 @@ class NoSuchPoll(Exception):
     # that poll doesn't exist
     pass
 
-class PermissionsError(Exception):
-    # base exeption for permission-related stuff
-    pass
-class NeedsGM(PermissionError):
+class NeedsGM(commands.CheckFailure):
     # you need to be a gamemaster to do that
     pass
-class NeedsParticipant(PermissionError):
+class NeedsParticipant(commands.CheckFailure):
     # you need to be a participant
     pass
