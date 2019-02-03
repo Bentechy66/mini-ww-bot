@@ -11,7 +11,7 @@ def signup_or_change(member, emoji):
     # first check if someone is already using that emoji
     p = Player.get_or_none(Player.emoji == emoji)
     if p is not None:
-        if p.discord_id == str(member.id):
+        if p.discord_id == member.id:
             msg = "You are"
         else:
             msg = "Someone else is"
