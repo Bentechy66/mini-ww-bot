@@ -28,6 +28,10 @@ class WrongGamePhase(commands.CheckFailure):
         fstr = "Wrong game phase! We needed `{0.name}` ({0.value}) but instead we are on `{1.name}` ({1.value})."
         return fstr.format(self.needs, self.current)
 
+class NoSuchPoll(Exception):
+    # that poll doesn't exist
+    pass
+
 class PermissionsError(Exception):
     # base exeption for permission-related stuff
     pass
