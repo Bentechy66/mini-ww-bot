@@ -12,3 +12,8 @@ def is_emoji_str(s):
 
 def fetch_guild(bot):
     return discord.utils.get(bot.guilds, id=conf['ids'].getint('guild'))
+
+def chunks(source, length):
+    # yields successive n-sized chunks from l
+    for i in range(0, len(source), length):
+        yield source[i : i+length]
