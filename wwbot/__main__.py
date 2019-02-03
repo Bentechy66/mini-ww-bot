@@ -23,6 +23,7 @@ async def on_ready():
 extensions = (
     "cc_cmds",
     "signup",
+    "poll_cmds",
 )
 
 @bot.command()
