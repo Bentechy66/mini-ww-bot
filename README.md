@@ -1,6 +1,6 @@
 # Mini-WW-Bot
 Very simple bot to automate the boring stuff in a werewolves server
-## How to use
+## Setup
 Do a git clone to get the source.
 
 To install the dependencies do `pip install -r requirements.txt`.
@@ -26,3 +26,6 @@ Values in this file to configure the database are in the section `[database]`, a
 - `gamephase_filename`: the filename, relative to the current working dir, of the game state file to use. Currently this file will just contain an integer that represents the global phase of the game (see the comment at the top of `wwbot/game_phase.py` for an explaination). This file gets loaded on startup and saved on exit.
 
 You can also configure the bot command prefix: this is in the section `[general]`, with the key name `prefix`. This is currently the only key in the `[general]` section.
+
+## Usage
+See the [GM Guide](https://ed588.github.io/mini-ww-bot/gmguide.html) for Game Master usage information.
