@@ -34,16 +34,6 @@ extensions = (
 async def ping(ctx):
     await ctx.send("pong")
 
-@commands.is_owner()
-@bot.command()
-async def stop(ctx):
-    raise SystemExit()
-
-@bot.command()
-async def temp_set_gp(ctx, new: int):
-    from wwbot.game_phase import set_game_phase
-    set_game_phase(new)
-
 for ext in extensions:
     bot.load_extension("wwbot."+ext)
 
