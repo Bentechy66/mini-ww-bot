@@ -4,11 +4,13 @@ This guide will be a step-by-step process for running a game using the bot.
 A core system of the way this bot works is the concept of *Game Phases*. A Game Phase is a global
 integer that describes what the overall current status of the system is. Currently, the game phases
 supported by the bot are as follows:
+
 | Id | Name | Description | Signups Open? | CCs and polls available |
 |----|------|-------------|---------------|-------------------------|
 |0|`NOTHING`|The bot does not really do anything|*No*|*No*|
 |1|`SIGNUP`|Signups are open, game not in progress|**Yes**|*No*|
 |2|`GAME`|Game in progress|*No*|**Yes**|
+
 When the bot is switched on for the first time it will be in Game Phase `NOTHING` (0). The current
 game phase is saved when the bot is shut down and loaded when it is started again.
 
