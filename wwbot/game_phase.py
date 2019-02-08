@@ -2,9 +2,7 @@
 # currently this is as follows:
 # 0 - Nothing. Bot doesn't do anything really
 # 1 - Signups. Bot serves signup requests but the game is not in progress
-# 2 - post-signups. Bot doesn't do anything, signups no longer open
-# 3 - in-game. CCs available, polls available, etc
-# 4 - post-game. Very similar to #0.
+# 2 - in-game. CCs available, polls available, etc. Signups closed.
 
 # use game_phase() to get the current game phase, and set_game_phase(new) to set it.
 # GamePhases is an enum for convienience.
@@ -24,9 +22,7 @@ class GamePhases(IntEnum):
     # convienience enum
     NOTHING = 0
     SIGNUP = 1
-    POST_SIGNUP = 2
-    GAME = 3
-    POST_GAME = 4
+    GAME = 2
 
 def _load_game_phase():
     try:
