@@ -11,7 +11,10 @@ from wwbot.errors import WWBotException
 import discord
 from discord.ext import commands
 
-bot = commands.Bot("]")
+from wwbot.config import conf
+
+prefix = conf['general']['prefix']
+bot = commands.Bot(prefix)
 
 token = os.getenv("WWBOT_TOKEN",None)
 if token is None:

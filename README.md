@@ -24,3 +24,5 @@ Values in the file to configure various discord ids are all in the section `[ids
 Values in this file to configure the database are in the section `[database]`, and are as follows:
 - `filename`: the filename, relative to the current working dir, of the SQLite database to use.
 - `gamephase_filename`: the filename, relative to the current working dir, of the game state file to use. Currently this file will just contain an integer that represents the global phase of the game (see the comment at the top of `wwbot/game_phase.py` for an explaination). This file gets loaded on startup and saved on exit.
+
+You can also configure the bot command prefix: this is in the section `[general]`, with the key name `prefix`. This is currently the only key in the `[general]` section.
