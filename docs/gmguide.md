@@ -1,5 +1,7 @@
 # Game Master Usage Guide
-This guide will be a step-by-step process for running a game using the bot.
+This guide will be a step-by-step process for running a game using the bot. If you're a player and
+you want to use the bot, read [this guide](userguide.md) instead.
+
 ## Game Phases
 A core system of the way this bot works is the concept of *Game Phases*. A Game Phase is a global
 integer that describes what the overall current status of the system is. Currently, the game phases
