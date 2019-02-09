@@ -25,6 +25,10 @@ can also use `{PREFIX}gamephase set <id_or_name>` to change the current game pha
 - Decide on roles, send them out to players.
 - Open the actual game: `GAME` (2).
 
+### `start_game` command
+The `{PREFIX}start_game` command is a convienience command that assigns the Participant role
+to all signed-up people, then switches to game phase `GAME` (2).
+
 ## Polls
 Polls can be created in the current channel with the command `{PREFIX}poll new`. The options on
 polls will be all currently alive players. The ID number for the poll will also be printed out.
