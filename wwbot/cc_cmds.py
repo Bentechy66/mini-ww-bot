@@ -6,6 +6,12 @@ from wwbot import ccs
 from wwbot.game_phase import needs_game_phase, GamePhases
 from wwbot.permissions import chk_participant
 
+import re
+mention_regex = re.compile(r'<@!?\d+>')
+
+def might_be_mention(s):
+    return bool(mention_regex.match(s))
+
 class CCCommands:
     # Cog class
     def __init__(self, bot):
@@ -27,7 +33,10 @@ class CCCommands:
         """
         #await ctx.send("creating cc {} with people {}".format(name, ", ".join(str(p) for p in people)))
         await ctx.message.delete()
-        await ccs.create_cc(self.bot,name,ctx.author,list(people)+[ctx.author])
+        if might_be_mention(name):
+            await ctx.send(":warning: You forgot to include the CC name!")
+        else:
+            await ccs.create_cc(self.bot,name,ctx.author,list(people)+[ctx.author])
     
     @cc.command()
     async def create_hidden(self, ctx, name, *people: discord.Member):
@@ -40,7 +49,10 @@ class CCCommands:
         """
         #await ctx.send("creating hidden cc {} with people {}".format(name, ", ".join(str(p) for p in people)))
         await ctx.message.delete()
-        await ccs.create_cc(self.bot,name,ctx.author,list(people)+[ctx.author],True)
+        if might_be_mention(name):
+            await ctx.send(":warning: You forgot to include the CC name!")
+        else:
+            await ccs.create_cc(self.bot,name,ctx.author,list(people)+[ctx.author],True)
 
     @cc.command()
     async def add(self, ctx, *people: discord.Member):
