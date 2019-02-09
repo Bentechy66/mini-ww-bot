@@ -5,7 +5,6 @@ from wwbot import errors
 from wwbot.util import is_emoji_str, fetch_guild
 from wwbot.game_phase import needs_game_phase, GamePhases
 from wwbot.db import db, Player
-from wwbot.config import conf
 from wwbot.permissions import chk_gamemaster
 
 def signup_or_change(member, emoji):
@@ -18,29 +17,26 @@ def signup_or_change(member, emoji):
             msg += "You are"
         else:
             msg += "Someone else is"
-        return False, msg+" already using the emoji {}!".format(emoji)
+        return msg+" already using the emoji {}!".format(emoji)
 
     p = None
     p = Player.get_or_none(Player.discord_id == member.id)
     if p is None:
         # create the player and add it
         Player.create(discord_id=member.id, emoji=emoji)
-        return True, ":white_check_mark: {} signed up with emoji {}".format(member.mention, emoji)
+        return ":white_check_mark: {} signed up with emoji {}".format(member.mention, emoji)
     else:
         # update the player
         p.emoji = emoji
         p.save()
         # well that was easy
-        return False, ":white_check_mark: {} changed their emoji to {}.".format(member.mention, emoji)
+        return ":white_check_mark: {} changed their emoji to {}.".format(member.mention, emoji)
 
-async def remove_player(member, bot):
+async def remove_player(member):
     p = Player.get_or_none(Player.discord_id == member.id)
     if p == None:
         return False
     p.delete_instance()
-    guild = fetch_guild(bot)
-    participant = guild.get_role(conf['ids'].getint("participant"))
-    await member.remove_roles(participant)
     return True
 
 class SignupCmds:
@@ -53,23 +49,18 @@ class SignupCmds:
         if not is_emoji_str(emoji):
             await ctx.send("{} is not an emoji!".format(emoji))
             return
-        needs_role, msg = signup_or_change(ctx.author, emoji)
-        if needs_role:
-            guild = fetch_guild(self.bot)
-            role = guild.get_role(conf['ids'].getint("participant"))
-            await ctx.author.add_roles(role)
+        msg = signup_or_change(ctx.author, emoji)
         await ctx.send(msg)
     
     @needs_game_phase(GamePhases.SIGNUP)
     @chk_gamemaster()
     @commands.command()
     async def unsignup(self, ctx, who: discord.Member):
-        worked = await remove_player(who, self.bot)
+        worked = await remove_player(who)
         if worked:
             await ctx.send(":white_check_mark: Player {} is no longer signed up".format(who))
         else:
             await ctx.send("That person wasn't signed up anyway so I didn't do anything.")
-
 
     @commands.command()
     async def list_signedup(self, ctx):
