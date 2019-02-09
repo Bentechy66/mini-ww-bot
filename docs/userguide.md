@@ -55,7 +55,7 @@ Example: to remove @person1 from a CC, you would type `{PREFIX}cc remove @person
 You probably won't need this, but you can type `{PREFIX}cc list` in any CC to list the people in that
 CC.
 
-# Miscellanious other commands
+# Miscellaneous other commands
 ## Signing up
 To sign up for a game do this: `{PREFIX}signup <emoji>`. For instance to sign up with the emoji
 🗑, do `{PREFIX}signup 🗑`.
