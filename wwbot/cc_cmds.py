@@ -25,7 +25,8 @@ class CCCommands:
         Create a new conspiracy channel with as many people as you want.
         Usage: `{PREFIX}create channel-name @person1 @person2 @person3...`
         """
-        await ctx.send("creating cc {} with people {}".format(name, ", ".join(str(p) for p in people)))
+        #await ctx.send("creating cc {} with people {}".format(name, ", ".join(str(p) for p in people)))
+        await ctx.message.delete()
         await ccs.create_cc(self.bot,name,ctx.author,list(people)+[ctx.author])
     
     @cc.command()
@@ -37,7 +38,8 @@ class CCCommands:
         who the creator of the CC is.
         Usage: `{PREFIX}create channel-name @person1 @person2 @person3...`
         """
-        await ctx.send("creating hidden cc {} with people {}".format(name, ", ".join(str(p) for p in people)))
+        #await ctx.send("creating hidden cc {} with people {}".format(name, ", ".join(str(p) for p in people)))
+        await ctx.message.delete()
         await ccs.create_cc(self.bot,name,ctx.author,list(people)+[ctx.author],True)
 
     @cc.command()
