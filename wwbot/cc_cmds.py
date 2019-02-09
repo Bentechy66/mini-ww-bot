@@ -23,7 +23,7 @@ class CCCommands:
         """Create a Conspiracy Channel
 
         Create a new conspiracy channel with as many people as you want.
-        Usage: `]create channel-name @person1 @person2 @person3...`
+        Usage: `{PREFIX}create channel-name @person1 @person2 @person3...`
         """
         await ctx.send("creating cc {} with people {}".format(name, ", ".join(str(p) for p in people)))
         await ccs.create_cc(self.bot,name,ctx.author,list(people)+[ctx.author])
@@ -35,7 +35,7 @@ class CCCommands:
         Create a new hidden conspiracy channel with as many people as you want.
         This works the same as ]create, except the people in the CC don't get told
         who the creator of the CC is.
-        Usage: `]create channel-name @person1 @person2 @person3...`
+        Usage: `{PREFIX}create channel-name @person1 @person2 @person3...`
         """
         await ctx.send("creating hidden cc {} with people {}".format(name, ", ".join(str(p) for p in people)))
         await ccs.create_cc(self.bot,name,ctx.author,list(people)+[ctx.author],True)
@@ -46,7 +46,7 @@ class CCCommands:
 
         Adds any number of people to the conspiracy channel it was sent in.
         This is only available to the owner of that conspiracy channel.
-        Usage: `]add @person1 @person2 @person3...`
+        Usage: `{PREFIX}add @person1 @person2 @person3...`
         """
         # not using ext.commands checks because that effects the help system
         ccs.check_cc_owner(ctx)
@@ -68,7 +68,7 @@ class CCCommands:
         Removes any number of people from the conspiracy channel it was sent in.
         This is only available to the owner of that conspiracy channel.
         The owner of a conspiracy channel cannot be removed from that channel.
-        Usage: `]remove @person1 @person2 @person3...`
+        Usage: `{PREFIX}remove @person1 @person2 @person3...`
         """
         #await ctx.send("(TODO) removing people {}".format(", ".join(str(p) for p in people)))
         ccs.check_cc_owner(ctx)
@@ -88,7 +88,7 @@ class CCCommands:
         """Lists people in a conspiracy channel
 
         Lists all the people currently in the conspiracy channel it was sent in.
-        Usage: `]list`
+        Usage: `{PREFIX}list`
         """
         people = ccs.get_cc_people(ctx.channel)
         await ctx.send("\n".join(m.mention for m in people))
