@@ -5,17 +5,37 @@ from discord.ext import commands
 from wwbot.config import conf
 from wwbot import errors
 from wwbot.util import fetch_guild
+from wwbot.db import CCCategory
 
 import random
 
-def fetch_category(bot):
-    return fetch_guild(bot).get_channel(conf['ids'].getint('category'))
+def fetch_cc_category_ids():
+    ret = []
+    for cat in CCCategory.select():
+        ret.append(cat.discord_id)
+    return ret
+
+async def fetch_a_category(bot):
+    ids = fetch_cc_category_ids()
+    guild = fetch_guild(bot)
+    for catid in ids:
+        cat = guild.get_channel(catid)
+        if len(cat.text_channels) < 30:
+            return cat
+            break
+    return await create_new_category(bot)
+
+async def create_new_category(bot):
+    guild = fetch_guild(bot)
+    cat = await guild.create_category_channel("More CCs rename me")
+    CCCategory.create(discord_id=cat.id)
+    return cat
 
 def is_cc(channel):
     # is that channel a cc?
-    # for now we see if it's in the ccs category.
-    # this may change later
-    return channel.category_id == conf['ids'].getint('category')
+    # we see if it's in one of the cc categories.
+    categories = fetch_cc_category_ids()
+    return channel.category_id in categories
 
 def get_cc_owner(channel):
     if not is_cc(channel):
@@ -64,7 +84,7 @@ async def create_cc(bot,name,owner,people,hidden=False):
         people.append(owner)
     
     guild = fetch_guild(bot)
-    category = fetch_category(bot)
+    category = await fetch_a_category(bot)
     if category is None: raise errors.NoSuchChannel()
 
     overwrites = get_overwrites(guild, people, owner)
