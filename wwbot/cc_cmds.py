@@ -4,7 +4,7 @@ from discord.ext import commands
 from wwbot.config import conf
 from wwbot import ccs
 from wwbot.game_phase import needs_game_phase, GamePhases
-from wwbot.permissions import chk_participant
+from wwbot.permissions import chk_participant, chk_gamemaster
 
 import re
 mention_regex = re.compile(r'<@!?\d+>')
@@ -106,6 +106,15 @@ class CCCommands:
         """
         people = ccs.get_cc_people(ctx.channel)
         await ctx.send("\n".join(m.mention for m in people))
+
+    @chk_gamemaster()
+    @needs_game_phase(GamePhases.GAME)
+    @commands.command()
+    async def add_cc_category_channel_manual(self, ctx, catid):
+        """manually add a cc category channel to the bot's db for porting from the old system."""
+        from wwbot.db import CCCategory
+        CCCategory.create(discord_id=catid)
+        await ctx.send(":+1: (hopefully)")
 
 def setup(bot):
     # extension setup function
