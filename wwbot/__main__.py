@@ -44,7 +44,7 @@ for ext in extensions:
 @bot.event
 async def on_command_error(ctx, error):
     # todo: nicer error handling for certain errors
-    if isinstance(error, (WWBotException, commands.CommandError)):
+    if isinstance(error, (WWBotException,)):
         await ctx.send(":warning: "+str(error))
     else:
         errstr = "".join(traceback.format_exception(type(error), error, error.__traceback__))
