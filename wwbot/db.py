@@ -24,7 +24,10 @@ class PollMessage(BaseModel):
 class KillQEntry(BaseModel):
     discord_id      = IntegerField(unique=True)
 
+class CCCategory(BaseModel):
+    discord_id      = IntegerField(unique=True)
+
 def create_tables():
     with db:
         print("Creating database tables in {}...".format(conf['database']['filename']))
-        db.create_tables([Player, Poll, PollMessage, KillQEntry])
+        db.create_tables([Player, Poll, PollMessage, KillQEntry, CCCategory])
