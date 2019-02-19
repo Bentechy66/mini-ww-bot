@@ -65,8 +65,5 @@ To list every player in the current game along with their emoji, whether they ar
 `{PREFIX}list_signedup`.
 
 ## Random other stuff you can do
-`{PREFIX}gamephase` will tell you what the bot's current internal Game Phase is. This is probably
-only interesting if you're a Game Master.
-
 `{PREFIX}ping` will make the bot say "pong". This is for testing if the bot is alive. Please don't
 spam it.

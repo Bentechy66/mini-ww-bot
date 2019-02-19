@@ -17,8 +17,8 @@ When the bot is switched on for the first time it will be in Game Phase `NOTHING
 game phase is saved when the bot is shut down and loaded when it is started again.
 
 ### Game Phase commands
-The command `{PREFIX}gamephase` can be used by anybody to query the current game phase. Game Masters
-can also use `{PREFIX}gamephase set <id_or_name>` to change the current game phase.
+The command `{PREFIX}gamephase` can be used by Game Masters to query the current game phase. Game
+Masters can also use `{PREFIX}gamephase set <id_or_name>` to change the current game phase.
 
 ### Example Game Phase Usage
 - Initially: `NOTHING` (0).
