@@ -18,7 +18,6 @@ By default, this will look for a file called `config.ini` in your current workin
 
 Values in the file to configure various discord ids are all in the section `[ids]`, and are as follows:
 - `guild`: the id of the guild you are running the bot in
-- `category`: the id of the category to put CCs in
 - `participant`: the id of the participant role (people who are allowed to create CCs)
 
 Values in this file to configure the database are in the section `[database]`, and are as follows:
