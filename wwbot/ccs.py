@@ -69,6 +69,8 @@ def get_overwrites(guild,people,owner):
         guild.default_role: discord.PermissionOverwrite(read_messages=False),
         # dead: read, no send
         guild.get_role(conf['ids'].getint("dead")): discord.PermissionOverwrite(read_messages=True, send_messages=False),
+        # spectator: read, no send
+        guild.get_role(conf['ids'].getint("spectator")): discord.PermissionOverwrite(read_messages=True, send_messages=False),
         # gamemasters: read, send
         guild.get_role(conf['ids'].getint("gamemaster")): discord.PermissionOverwrite(read_messages=True, send_messages=True),
     }
