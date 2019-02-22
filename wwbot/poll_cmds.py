@@ -36,9 +36,7 @@ class PollCmds():
         This doesn't have to be run in the same channel that the poll was created in.
         """
         # closes that poll, puts results somewhere
-        reactions = await polls.close_poll(self.bot, pollid)
-        await ctx.send("Results for poll #`{}`:".format(pollid))
-        for emoji, people in reactions.items():
-            await ctx.send("{} - {} ({})".format(emoji, len(people), ", ".join(str(p) for p in people)))
+        result = await polls.close_poll(self.bot, pollid)
+        await ctx.send(result)   
 def setup(bot):
     bot.add_cog(PollCmds(bot))
