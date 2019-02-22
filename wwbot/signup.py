@@ -5,7 +5,7 @@ from wwbot import errors
 from wwbot.util import is_emoji_str, fetch_guild
 from wwbot.game_phase import needs_game_phase, GamePhases
 from wwbot.db import db, Player
-from wwbot.permissions import chk_gamemaster
+from wwbot.permissions import chk_gamemaster, is_gamemaster
 
 def signup_or_change(member, emoji):
     # returns bool (new or not) and str (message to print)
@@ -63,18 +63,27 @@ class SignupCmds:
             await ctx.send("That person wasn't signed up anyway so I didn't do anything.")
 
     @commands.command()
-    async def list_signedup(self, ctx):
+    async def list_signedup(self, ctx, mention=False):
+        if not is_gamemaster(ctx.author) and mention:
+            mention=False
         guild = fetch_guild(self.bot)
         players = list(Player.select())
         count = len(players)
         if count == 0:
             await ctx.send("No one has signed up yet!")
         else:
-            await ctx.send(
-                "*Total: {} players*\n".format(count) + 
-                "\n".join(
-                    "{} - {}".format(p.emoji, guild.get_member(p.discord_id).display_name) for p in players
-                ))
+            if mention:
+                await ctx.send(
+                    "*Total: {} players*\n".format(count) + 
+                    "\n".join(
+                        "{} - {}".format(p.emoji, guild.get_member(p.discord_id).mention) for p in players
+                    ))
+            else:
+                await ctx.send(
+                    "*Total: {} players*\n".format(count) + 
+                    "\n".join(
+                        "{} - {}".format(p.emoji, guild.get_member(p.discord_id).display_name) for p in players
+                    ))
 
 def setup(bot):
     bot.add_cog(SignupCmds(bot))
