@@ -44,7 +44,7 @@ def get_cc_owner(channel):
     if not is_cc(channel):
         raise errors.NotACc()
     for target, ows in channel.overwrites:
-        if isinstance(target, discord.Member) and ows.send_messages:
+        if isinstance(target, discord.Member) and ows.read_message_history:
             return target
     raise errors.OwnerNotFound()
 
@@ -80,7 +80,7 @@ def get_overwrites(guild,people,owner):
     for person in people:
         # person will be a member
         overwrites[person] = discord.PermissionOverwrite(read_messages=True)
-    overwrites[owner].send_messages = True # they would have this anyway so we use it to store the owner
+    overwrites[owner].read_message_history = True # they would have this anyway so we use it to store the owner
     return overwrites
 
 async def create_cc(bot,name,owner,people,hidden=False):
