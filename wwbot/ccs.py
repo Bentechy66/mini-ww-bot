@@ -20,6 +20,9 @@ async def fetch_a_category(bot):
     guild = fetch_guild(bot)
     for catid in ids:
         cat = guild.get_channel(catid)
+        if cat is None:
+            CCCategory.get(discord_id=catid).delete_instance()
+            continue # clean up and skip if it no longer exists
         if len(cat.text_channels) < 30:
             return cat
             break
