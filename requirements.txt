@@ -2,7 +2,7 @@ aiohttp==3.4.4
 async-timeout==3.0.1
 attrs==18.2.0
 chardet==3.0.4
-git+https://github.com/Rapptz/discord.py@rewrite
+git+https://github.com/Rapptz/discord.py@rewrite==1.0.0a1720+g8db7b5e
 emoji==0.5.1
 idna==2.8
 idna-ssl==1.1.0
