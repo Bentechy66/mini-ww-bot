@@ -13,7 +13,7 @@ mention_regex = re.compile(r'<@!?\d+>')
 def might_be_mention(s):
     return bool(mention_regex.match(s))
 
-class CCCommands:
+class CCCommands(commands.Cog):
     # Cog class
     def __init__(self, bot):
         self.bot = bot

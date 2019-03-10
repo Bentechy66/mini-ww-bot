@@ -7,7 +7,7 @@ from wwbot.db import Player
 from wwbot.util import fetch_guild
 from wwbot.config import conf
 
-class GamePhaseCmds:
+class GamePhaseCmds(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 

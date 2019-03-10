@@ -5,7 +5,7 @@ from wwbot.permissions import chk_gamemaster
 from wwbot.game_phase import needs_game_phase, GamePhases
 from wwbot import polls
 
-class PollCmds():
+class PollCmds(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 

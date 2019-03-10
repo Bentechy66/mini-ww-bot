@@ -10,7 +10,7 @@ from wwbot.db import KillQEntry
 from wwbot.util import fetch_guild
 from wwbot.config import conf
 
-class KillQCmds:
+class KillQCmds(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
