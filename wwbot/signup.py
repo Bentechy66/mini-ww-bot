@@ -39,7 +39,7 @@ async def remove_player(member):
     p.delete_instance()
     return True
 
-class SignupCmds(commands.Cog):
+class SignupCmds(commands.Cog, name="Signup"):
     def __init__(self, bot):
         self.bot=bot
 
