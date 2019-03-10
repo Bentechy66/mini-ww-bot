@@ -49,7 +49,7 @@ async def on_command_error(ctx, error):
     else:
         errstr = "".join(traceback.format_exception(type(error), error, error.__traceback__))
         logger.error("Error in command {}:\n{}".format(ctx.command, errstr))
-        await ctx.send("An error occured: {} - {}\nPlease see console for details.".format(error.__class__.__name__, str(error)))
+        await ctx.send(":warning: An error occured: {} (`{}`)".format(str(error), error.__class__.__name__))
 
 if __name__ == "__main__":
     bot.run(token)
