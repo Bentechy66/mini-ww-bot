@@ -31,6 +31,7 @@ extensions = (
     "poll_cmds",
     "killq",
     "game_phase_cmds",
+    "roles",
 )
 
 @bot.command()
