@@ -13,6 +13,7 @@ class Player(BaseModel):
     # needs to store name and emoji
     discord_id      = IntegerField(unique=True) 
     emoji           = CharField(unique=True)   # don't worry about length, sqlite doesn't care anyway
+    role            = CharField(default="")
 
 class Poll(BaseModel):
     channel         = IntegerField()
