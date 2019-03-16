@@ -28,10 +28,12 @@ class RoleCmds(commands.Cog, name="Roles"):
     @chk_gamemaster()
     @commands.group()
     async def roles(self, ctx):
+        """A group of commands relating to roles and role management"""
         pass
 
     @roles.command()
-    async def send(self, ctx):
+    async def send_all(self, ctx):
+        """Sends everybody their roles via DM. Theoretically you can run this as many times as you like."""
         for p in Player.select():
             await ctx.send("Sending role to {}".format(self.guild.get_member(p.discord_id)))
             await self.send_role_to(p)
@@ -39,6 +41,7 @@ class RoleCmds(commands.Cog, name="Roles"):
 
     @roles.command(name="list")
     async def _list(self, ctx):
+        """Lists all players, and their roles."""
         guild = self.guild
         r = []
         for p in Player.select():
@@ -47,6 +50,8 @@ class RoleCmds(commands.Cog, name="Roles"):
     
     @roles.command(name="set")
     async def _set(self, ctx, who: discord.Member, role: str = ""):
+        """Sets a player's role. This can be used at any time for any player. start_game will refuse
+        to run until everyone has a role. Use without a role to clear someone's role."""
         p = Player.get(Player.discord_id == who.id)
         p.role = role
         p.save()
