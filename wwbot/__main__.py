@@ -28,6 +28,7 @@ extensions = (
     "killq",
     "game_phase_cmds",
     "roles",
+    "secret_channels",
 )
 
 @bot.command()

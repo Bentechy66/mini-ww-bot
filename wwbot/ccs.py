@@ -80,12 +80,13 @@ def get_overwrites(guild,people,owner):
     for person in people:
         # person will be a member
         overwrites[person] = discord.PermissionOverwrite(read_messages=True)
-    overwrites[owner].read_message_history = True # they would have this anyway so we use it to store the owner
+    if owner is not None: # owner = none means this is a channel with no "owner"
+        overwrites[owner].read_message_history = True # they would have this anyway so we use it to store the owner
     return overwrites
 
-async def create_cc(bot,name,owner,people,hidden=False,category=None):
+async def create_cc(bot,name,owner,people,hidden=False,category=None,announce=True):
     # people should contain owner
-    if owner not in people:
+    if owner not in people and owner is not None:
         people.append(owner)
     
     guild = fetch_guild(bot)
@@ -100,14 +101,15 @@ async def create_cc(bot,name,owner,people,hidden=False,category=None):
         category=category
     )
 
-    people_mentions = [p.mention for p in people]
-    random.shuffle(people_mentions)
-    
-    if hidden:
-        msg = "A new CC has been created!\n**Members:**\n{}".format("\n".join(people_mentions))
-    else:
-        msg = "{} has created a new CC!\n**Members:**\n{}".format(owner.mention,"\n".join(people_mentions))
-    await channel.send(msg)
+    if announce:
+        people_mentions = [p.mention for p in people]
+        random.shuffle(people_mentions)
+        
+        if hidden:
+            msg = "A new CC has been created!\n**Members:**\n{}".format("\n".join(people_mentions))
+        else:
+            msg = "{} has created a new CC!\n**Members:**\n{}".format(owner.mention,"\n".join(people_mentions))
+        await channel.send(msg)
 
 async def add_to_cc(channel, people):
     if not is_cc(channel):
