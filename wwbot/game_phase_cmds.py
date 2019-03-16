@@ -2,10 +2,11 @@ import discord
 from discord.ext import commands
 
 from wwbot.game_phase import game_phase, set_game_phase, GamePhases
-from wwbot.permissions import chk_gamemaster
+from wwbot.permissions import chk_gamemaster, chk_gm_channel
 from wwbot.db import Player
 from wwbot.util import fetch_guild
 from wwbot.config import conf
+from wwbot.roles import everyone_has_a_role
 
 class GamePhaseCmds(commands.Cog, name="Game Phase"):
     def __init__(self, bot):
@@ -31,6 +32,7 @@ class GamePhaseCmds(commands.Cog, name="Game Phase"):
         set_game_phase(int_to)
         await ctx.send(":white_check_mark: Game Phase is now `{0.name}` ({0.value})".format(GamePhases(game_phase())))
 
+    @chk_gm_channel()
     @chk_gamemaster()
     @commands.check(lambda _: game_phase() != GamePhases.GAME)
     @commands.command()
@@ -40,6 +42,9 @@ class GamePhaseCmds(commands.Cog, name="Game Phase"):
         This is equivalent to manually assigning the Participant role to all
         signed up players, then doing `{PREFIX}gamephase set GAME`.
         """
+        if not everyone_has_a_role():
+            await ctx.send(":warning: We can't start yet, not everyone has a role!")
+            return
         guild = fetch_guild(self.bot)
         participant = guild.get_role(conf['ids'].getint("participant"))
         for p in Player.select():
