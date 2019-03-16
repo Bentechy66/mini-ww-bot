@@ -53,7 +53,7 @@ class RoleCmds(commands.Cog, name="Roles"):
         """Sets a player's role. This can be used at any time for any player. start_game will refuse
         to run until everyone has a role. Use without a role to clear someone's role."""
         p = Player.get(Player.discord_id == who.id)
-        p.role = role
+        p.role = role.lower()
         p.save()
         if role == "":
             await ctx.send(":white_check_mark: cleared {}'s role".format(who.mention))
