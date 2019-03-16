@@ -21,10 +21,6 @@ if token is None:
     sys.exit("Please set envvar WWBOT_TOKEN to your bot's token")
 
 
-@bot.event
-async def on_ready():
-    logger.info("Logged in!")
-
 extensions = (
     "cc_cmds",
     "signup",
@@ -38,9 +34,17 @@ extensions = (
 async def ping(ctx):
     await ctx.send("pong")
 
-for ext in extensions:
-    bot.load_extension("wwbot."+ext)
+@bot.event
+async def on_ready():
+    logger.info("Logged in, loading extensions...")
+    for ext in extensions:
+        bot.load_extension("wwbot."+ext)
+    logger.info("{} extensions loaded. Done!".format(len(extensions)))
 
+
+@bot.command()
+async def _t_rm(ctx, r="Innocent"):
+    await ctx.send(conf['general']['role_message'].format(role=r))
 # errors
 @bot.event
 async def on_command_error(ctx, error):
