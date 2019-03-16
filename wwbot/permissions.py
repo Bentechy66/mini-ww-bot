@@ -31,3 +31,19 @@ def chk_gamemaster():
             raise errors.NeedsGM()
     return commands.check(predicate)
 
+def is_gm_channel(channel):
+    topic = channel.topic
+    if topic is None:
+        return False
+    elif "GMSAFE" in topic:
+        return True
+    else:
+        return False
+
+def chk_gm_channel():
+    def predicate(ctx):
+        if is_gm_channel(ctx.channel):
+            return True
+        else:
+            raise errors.NeedsGmChannel()
+    return commands.check(predicate)
