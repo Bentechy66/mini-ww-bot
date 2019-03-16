@@ -83,13 +83,14 @@ def get_overwrites(guild,people,owner):
     overwrites[owner].read_message_history = True # they would have this anyway so we use it to store the owner
     return overwrites
 
-async def create_cc(bot,name,owner,people,hidden=False):
+async def create_cc(bot,name,owner,people,hidden=False,category=None):
     # people should contain owner
     if owner not in people:
         people.append(owner)
     
     guild = fetch_guild(bot)
-    category = await fetch_a_category(bot)
+    if category is None:
+        category = await fetch_a_category(bot)
     if category is None: raise errors.NoSuchChannel()
 
     overwrites = get_overwrites(guild, people, owner)
