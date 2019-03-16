@@ -45,3 +45,8 @@ class NeedsGM(commands.CheckFailure, WWBotException):
 class NeedsParticipant(commands.CheckFailure, WWBotException):
     """you need to be a participant"""
     pass
+class NeedsGmChannel(commands.CheckFailure, WWBotException):
+    """That command needs to be run in a GM Channel! (Add the word GMSAFE to a channel's topic to
+    make it a GM channel.)
+    """
+    pass
