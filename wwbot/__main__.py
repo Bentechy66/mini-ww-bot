@@ -42,10 +42,6 @@ async def on_ready():
         bot.load_extension("wwbot."+ext)
     logger.info("{} extensions loaded. Done!".format(len(extensions)))
 
-
-@bot.command()
-async def _t_rm(ctx, r="Innocent"):
-    await ctx.send(conf['general']['role_message'].format(role=r))
 # errors
 @bot.event
 async def on_command_error(ctx, error):
