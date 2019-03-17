@@ -8,6 +8,7 @@ from wwbot.db import Player
 from wwbot.permissions import chk_gm_channel, chk_gamemaster
 from wwbot.util import fetch_guild
 from wwbot.config import conf
+from wwbot.mentioning import PlayerConverter
 
 def everyone_has_a_role():
     # is everything in a state that means we can start the game yet?
@@ -39,7 +40,7 @@ class RoleCmds(commands.Cog, name="Roles"):
             await ctx.send("Sending role to {}".format(member))
             try:
                 await self.send_role_to(p)
-            except:
+            except discord.Forbidden:
                 await ctx.send(":warning: Couldn't send role to {}!".format(member))
         await ctx.send(":white_check_mark: Done")
 
@@ -53,7 +54,7 @@ class RoleCmds(commands.Cog, name="Roles"):
         await ctx.send("\n".join(r))
     
     @roles.command(name="set")
-    async def _set(self, ctx, who: discord.Member, role: str = ""):
+    async def _set(self, ctx, who: PlayerConverter, role: str = ""):
         """Sets a player's role. This can be used at any time for any player. start_game will refuse
         to run until everyone has a role. Use without a role to clear someone's role."""
         p = Player.get(Player.discord_id == who.id)

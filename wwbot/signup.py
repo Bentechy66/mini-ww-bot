@@ -6,6 +6,7 @@ from wwbot.util import is_emoji_str, fetch_guild
 from wwbot.game_phase import needs_game_phase, GamePhases
 from wwbot.db import db, Player
 from wwbot.permissions import chk_gamemaster, is_gamemaster
+from wwbot.mentioning import PlayerConverter
 
 def signup_or_change(member, emoji):
     # returns bool (new or not) and str (message to print)
@@ -55,7 +56,7 @@ class SignupCmds(commands.Cog, name="Signup"):
     @needs_game_phase(GamePhases.SIGNUP)
     @chk_gamemaster()
     @commands.command()
-    async def unsignup(self, ctx, who: discord.Member):
+    async def unsignup(self, ctx, who: PlayerConverter):
         worked = await remove_player(who)
         if worked:
             await ctx.send(":white_check_mark: Player {} is no longer signed up".format(who))

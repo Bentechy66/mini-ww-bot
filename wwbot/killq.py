@@ -9,6 +9,7 @@ from wwbot.game_phase import needs_game_phase, GamePhases
 from wwbot.db import KillQEntry
 from wwbot.util import fetch_guild
 from wwbot.config import conf
+from wwbot.mentioning import PlayerConverter
 
 class KillQCmds(commands.Cog, name="Kill Queue"):
     def __init__(self, bot):
@@ -31,7 +32,7 @@ class KillQCmds(commands.Cog, name="Kill Queue"):
             await ctx.send("Current Kill Queue:\n" + msg)
     
     @killq.command()
-    async def add(self, ctx, *who: discord.Member):
+    async def add(self, ctx, *who: PlayerConverter):
         """Add players to the kill queue.
 
         They must all be participants.

@@ -6,6 +6,7 @@ from wwbot import ccs
 from wwbot.game_phase import needs_game_phase, GamePhases
 from wwbot.permissions import chk_participant, chk_gamemaster
 from wwbot.util import fetch_guild
+from wwbot.mentioning import PlayerConverter
 
 import re
 mention_regex = re.compile(r'<@!?\d+>')
@@ -26,7 +27,7 @@ class CCCommands(commands.Cog, name="CCs"):
         await ctx.send("You need to use a subcommand, see the help.")
     
     @cc.command()
-    async def create(self, ctx, name, *people: discord.Member):
+    async def create(self, ctx, name, *people: PlayerConverter):
         """Create a Conspiracy Channel
 
         Create a new conspiracy channel with as many people as you want.
@@ -40,7 +41,7 @@ class CCCommands(commands.Cog, name="CCs"):
             await ccs.create_cc(self.bot,name,ctx.author,list(people)+[ctx.author])
     
     @cc.command()
-    async def create_hidden(self, ctx, name, *people: discord.Member):
+    async def create_hidden(self, ctx, name, *people: PlayerConverter):
         """Create a Hidden Conspiracy Channel
 
         Create a new hidden conspiracy channel with as many people as you want.
@@ -56,7 +57,7 @@ class CCCommands(commands.Cog, name="CCs"):
             await ccs.create_cc(self.bot,name,ctx.author,list(people)+[ctx.author],True)
 
     @cc.command()
-    async def add(self, ctx, *people: discord.Member):
+    async def add(self, ctx, *people: PlayerConverter):
         """Adds people to a conspiracy channel
 
         Adds any number of people to the conspiracy channel it was sent in.
@@ -77,7 +78,7 @@ class CCCommands(commands.Cog, name="CCs"):
         await ctx.send(msg)
     
     @cc.command()
-    async def remove(self, ctx, *people: discord.Member):
+    async def remove(self, ctx, *people: PlayerConverter):
         """Removes people from a conspiracy channel
 
         Removes any number of people from the conspiracy channel it was sent in.
