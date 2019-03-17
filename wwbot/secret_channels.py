@@ -17,7 +17,6 @@ class SecretChannelCmds(commands.Cog, name="Secret Channels"):
     async def create_secret_channel(self, name, people):
         # people should be a list of Member
         category = self.guild.get_channel(conf['ids'].getint('sc_category'))
-        print(category)
         await create_cc(self.bot, name, None, people, category=category, announce=False)
 
     @chk_gamemaster()
