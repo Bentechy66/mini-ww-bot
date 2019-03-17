@@ -35,8 +35,12 @@ class RoleCmds(commands.Cog, name="Roles"):
     async def send_all(self, ctx):
         """Sends everybody their roles via DM. Theoretically you can run this as many times as you like."""
         for p in Player.select():
-            await ctx.send("Sending role to {}".format(self.guild.get_member(p.discord_id)))
-            await self.send_role_to(p)
+            member = self.guild.get_member(p.discord_id)
+            await ctx.send("Sending role to {}".format(member))
+            try:
+                await self.send_role_to(p)
+            except:
+                await ctx.send(":warning: Couldn't send role to {}!".format(member))
         await ctx.send(":white_check_mark: Done")
 
     @roles.command(name="list")
