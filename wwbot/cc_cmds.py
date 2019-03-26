@@ -138,6 +138,7 @@ class CCCommands(commands.Cog, name="CCs"):
                 cat = guild.get_channel(catid)
                 for ch in cat.text_channels:
                     await ch.delete()
+                await cat.delete()
 
 
 def setup(bot):
