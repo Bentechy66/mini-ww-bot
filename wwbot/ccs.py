@@ -6,6 +6,7 @@ from wwbot.config import conf
 from wwbot import errors
 from wwbot.util import fetch_guild
 from wwbot.db import CCCategory
+from wwbot.permissions import is_gamemaster
 
 import random
 
@@ -40,7 +41,14 @@ def is_cc(channel):
     categories = fetch_cc_category_ids()
     return channel.category_id in categories
 
+def is_sc(channel):
+    # is that channel a secret channel?
+    # basically the same idea as is_cc
+    return channel.category_id == conf['ids'].getint('sc_category')
+
 def get_cc_owner(channel):
+    if is_sc(channel):
+        return None
     if not is_cc(channel):
         raise errors.NotACc()
     for target, ows in channel.overwrites:
@@ -50,7 +58,7 @@ def get_cc_owner(channel):
 
 def get_cc_people(channel):
     # returns list of member who are in cc (includes owner)
-    if not is_cc(channel):
+    if not (is_cc(channel) or is_sc(channel)):
         raise errors.NotACc()
     res = []
     for target, perms in channel.overwrites:
@@ -61,10 +69,14 @@ def get_cc_people(channel):
     return res
 
 def check_cc_owner(ctx):
-    # not using ext.commands checks because that effects the help system
-    owner = get_cc_owner(ctx.channel)
-    if ctx.author != owner:
-        raise errors.NotOwner()
+    # not using ext.commands checks because that affects the help system
+    if is_cc(ctx.channel):
+        owner = get_cc_owner(ctx.channel)
+        if ctx.author != owner:
+            raise errors.NotOwner()
+    elif is_sc(ctx.channel):
+        if not is_gamemaster(ctx.author):
+            raise errors.NeedsGM()
 
 def get_overwrites(guild,people,owner):
     overwrites = {
@@ -112,7 +124,7 @@ async def create_cc(bot,name,owner,people,hidden=False,category=None,announce=Tr
         await channel.send(msg)
 
 async def add_to_cc(channel, people):
-    if not is_cc(channel):
+    if not (is_cc(channel) or is_sc(channel)):
         raise errors.NotACc()
     changed = []
     current_people = get_cc_people(channel)
@@ -124,7 +136,7 @@ async def add_to_cc(channel, people):
     return changed
 
 async def remove_from_cc(channel, people):
-    if not is_cc(channel):
+    if not (is_cc(channel) or is_sc(channel)):
         raise errors.NotACc()
     changed = []
     current_people = get_cc_people(channel)
