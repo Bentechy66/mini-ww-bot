@@ -22,11 +22,11 @@ class SecretChannelCmds(commands.Cog, name="Secret Channels"):
     @chk_gamemaster()
     @chk_gm_channel()
     @commands.group()
-    async def sc(self, ctx):
+    async def create_sc(self, ctx):
         """Group of commands for dealing with secret channels"""
         pass
     
-    @sc.command()
+    @create_sc.command()
     async def ind(self, ctx, role):
         """Creates individual secret channels for everybody with
         this role, separately."""
@@ -35,7 +35,7 @@ class SecretChannelCmds(commands.Cog, name="Secret Channels"):
             await self.create_secret_channel(role, [member])
         await ctx.send(":white_check_mark: Done!")
 
-    @sc.command()
+    @create_sc.command()
     async def multi(self, ctx, name, *roles):
         """Creates a single secret channel with every person with any of
         the specified role in. Remember to specify the name!"""
