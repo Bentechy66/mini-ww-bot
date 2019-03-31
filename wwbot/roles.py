@@ -54,7 +54,7 @@ class RoleCmds(commands.Cog, name="Roles"):
         await ctx.send("\n".join(r))
     
     @roles.command(name="set")
-    async def _set(self, ctx, who: PlayerConverter, role: str = ""):
+    async def _set(self, ctx, who: PlayerConverter(needs_alive=False), role: str = ""):
         """Sets a player's role. This can be used at any time for any player. start_game will refuse
         to run until everyone has a role. Use without a role to clear someone's role."""
         p = Player.get(Player.discord_id == who.id)
