@@ -29,6 +29,7 @@ extensions = (
     "game_phase_cmds",
     "roles",
     "secret_channels",
+    "cleanup",
 )
 
 @bot.command()
