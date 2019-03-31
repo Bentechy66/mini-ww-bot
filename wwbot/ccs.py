@@ -11,10 +11,7 @@ from wwbot.permissions import is_gamemaster
 import random
 
 def fetch_cc_category_ids():
-    ret = []
-    for cat in CCCategory.select():
-        ret.append(cat.discord_id)
-    return ret
+    return [cat.discord_id for cat in CCCategory.select()]
 
 async def fetch_a_category(bot):
     ids = fetch_cc_category_ids()
