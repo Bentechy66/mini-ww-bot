@@ -110,7 +110,6 @@ class CCCommands(commands.Cog, name="CCs"):
         await ctx.send("\n".join(m.mention for m in people))
 
     @chk_gamemaster()
-    @needs_game_phase(GamePhases.GAME)
     @commands.command()
     async def add_cc_category(self, ctx, catid):
         """manually add a cc category channel to the bot's db for porting from the old system."""
@@ -118,29 +117,6 @@ class CCCommands(commands.Cog, name="CCs"):
         CCCategory.create(discord_id=catid)
         await ctx.send(":+1: (hopefully)")
     
-    @chk_gamemaster()
-    @needs_game_phase(GamePhases.NOTHING)
-    @commands.command()
-    async def clear_all_ccs(self, ctx):
-        """Delete all cc channels, from a previous game."""
-        guild = fetch_guild(self.bot)
-
-        def check(m):
-            return m.author.id == ctx.author.id and m.content.lower() == "ok" and m.channel == ctx.channel
-
-        await ctx.send("All CC Channels will be deleted! Please type 'ok' here to confirm. This will expire in 10 seconds.")
-        try:
-            msg = await self.bot.wait_for("message", check=check, timeout=10.0)
-        except asyncio.TimeoutError:
-            await ctx.send("Timed out.")
-        else:
-            for catid in ccs.fetch_cc_category_ids():
-                cat = guild.get_channel(catid)
-                for ch in cat.text_channels:
-                    await ch.delete()
-                await cat.delete()
-
-
 def setup(bot):
     # extension setup function
     bot.add_cog(CCCommands(bot))
