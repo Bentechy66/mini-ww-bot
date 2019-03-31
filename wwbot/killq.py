@@ -7,7 +7,7 @@ from discord.ext import commands
 from wwbot.permissions import chk_gamemaster
 from wwbot.game_phase import needs_game_phase, GamePhases
 from wwbot.db import KillQEntry
-from wwbot.util import fetch_guild
+from wwbot.util import fetch_guild, confirm
 from wwbot.config import conf
 from wwbot.mentioning import PlayerConverter
 
@@ -66,16 +66,7 @@ class KillQCmds(commands.Cog, name="Kill Queue"):
             await ctx.send(":warning: The Kill Queue is empty!")
             return
         
-        def check(m):
-            return m.author.id == ctx.author.id and m.content.lower() == "ok" and m.channel == ctx.channel
-
-        await ctx.send("All the above people will be killed by this command. Please type 'ok' here to confirm. This will expire in 10 seconds.")
-
-        try:
-            msg = await self.bot.wait_for("message", check=check, timeout=10.0)
-        except asyncio.TimeoutError:
-            await ctx.send("Timed out.")
-        else:
+        if await confirm(ctx, "All the above people will be killed by this command."):
             for e in to_kill:
                 member = guild.get_member(e.discord_id)
                 await member.remove_roles(participant)
