@@ -128,14 +128,14 @@ class ReadmeCommands(commands.cog, name="Readme"):
             # Pull the readme JSON constant files and slide it into the user's DMs.
             elif operand in README_RECV_ALIASES:
                 # Get the human-readble readme data.
-                with open("cdbot/data/readme_raw.json", "rb") as readme_json:
+                with open("readme.json", "rb") as readme_json:
                     raw_json = readme_json.read()
 
                     # Slide it to the user's DMs.
                     requesting_user = await self.bot.get_user_info(ctx.message.author.id)
                     await requesting_user.send(
                         content="Hey, here's your readme config file!",
-                        file=File(raw_json, 'readme_raw.json')
+                        file=File(raw_json, 'readme.json')
                     )
 
                     msg_confirmation = Embed(
