@@ -107,13 +107,7 @@ class ReadmeCommands(commands.Cog, name="Readme"):
                 content="Hey, here's your readme config file!",
                 file=File(raw_json, 'readme.json')
             )
-
-            msg_confirmation = Embed(
-                colour=0x009688,
-                description=":airplane: **Flying in, check your DMs!**"
-            )
-            await ctx.message.delete()
-            await ctx.send(embed=msg_confirmation)
+            await ctx.send(":airplane: **Flying in, check your DMs!**")
 
 def setup(bot):
     bot.add_cog(ReadmeCommands(bot))
