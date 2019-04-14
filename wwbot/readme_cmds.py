@@ -1,7 +1,8 @@
 import discord
-from discord.ext import commands, has_role, command
+from discord.ext import commands, command
 
 from wwbot.config import conf
+from wwbot.permissions import chk_gamemaster
     
     
 class ReadmeCommands(commands.cog, name="Readme"):
@@ -9,7 +10,7 @@ class ReadmeCommands(commands.cog, name="Readme"):
         self.bot = bot
 
     @command()
-    @has_role(conf["ids"]["gamemaster"])
+    @chk_gamemaster()
     async def readme(self, ctx: Context, operand: str = "", channel_id: int = 0, msg_send_interval: int = 0):
         """
         Allows generating, sending and manipulation of JSON file containing the info needed
