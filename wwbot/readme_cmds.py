@@ -1,5 +1,5 @@
 from time import sleep
-from io import StringIO
+from io import BytesIO
 from json import load
 
 import discord
@@ -34,15 +34,10 @@ class ReadmeCommands(commands.Cog, name="Readme"):
 
         # The user has uploaded a config.
         if ctx.message.attachments != []:
-            json_file_location = [_.url for _ in ctx.message.attachments][0]
+            message_attachment = ctx.message.attachments[0]
 
-            # GETs the attachment data.
-            async with ClientSession() as session:
-                async with session.get(json_file_location) as response:
-                    if response.status == 200:
-                        resp_text = await response.text()
+            json_config = load(BytesIO(message_attachment.save()))
 
-            json_config = load(StringIO(resp_text))
             await ctx.send(embed=usr_confirmation)
 
         # No config uploaded, just use default config file.
