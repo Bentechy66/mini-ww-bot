@@ -23,11 +23,7 @@ class ReadmeCommands(commands.Cog, name="Readme"):
         to create and send the embeds for the #readme channel. Only Game Masters have
         the permissions need to use this command.
         """
-        incorrect_operand_embed = Embed(
-            colour=0x673ab7,
-            description=":shrug: **No subcommand specified.**"
-        )
-        await ctx.send(embed=incorrect_operand_embed)
+        await ctx.send("⚠️ You didn't specify a subcommand!")
 
         
     @readme.command()
@@ -35,10 +31,7 @@ class ReadmeCommands(commands.Cog, name="Readme"):
         # Let's create a series of #readme-capable embeds. If something is uploaded,
         # It will attempt to use that file for the readme, if omitted, it will use
         # the default JSONifed readme file and send that into the channel instead.
-        usr_confirmation_embed = Embed(
-            colour=0x4caf50,
-            description=":white_check_mark: **Creating readme using uploaded config file.**"
-        )
+        usr_confirmation = ":white_check_mark: Creating README using uploaded config file"
 
         # The user has uploaded a config.
         if ctx.message.attachments != []:
@@ -58,9 +51,8 @@ class ReadmeCommands(commands.Cog, name="Readme"):
             with open("readme.json", "rb") as default_json:
                 json_config = load(default_json)
 
-            usr_confirmation_embed.description = (":ballot_box_with_check: "
-                                                    "**Creating readme using default config file.**")
-            await ctx.send(embed=usr_confirmation_embed)
+            usr_confirmation = ":ballot_box_with_check: Creating README using default config file."
+            await ctx.send(usr_confirmation)
 
         for section in json_config:
             # Initialise our message and embed variables each loop.
