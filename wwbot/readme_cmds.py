@@ -4,7 +4,6 @@ from json import load
 
 import discord
 from discord.ext import commands
-from aiohttp import ClientSession
 
 from wwbot.config import conf
 from wwbot.permissions import chk_gamemaster
