@@ -118,7 +118,7 @@ class ReadmeCommands(commands.cog, name="Readme"):
                         if (0 < msg_send_interval < 901):
                             await sleep(msg_send_interval)
 
-                except(Exception):
+                except:
                     parse_fail_embed = Embed(
                         colour=0x673ab7,
                         description=":x: **Error parsing JSON file, please ensure its valid!**"
