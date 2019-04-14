@@ -29,7 +29,6 @@ class ReadmeCommands(commands.Cog, name="Readme"):
         # Let's create a series of #readme-capable embeds. If something is uploaded,
         # It will attempt to use that file for the readme, if omitted, it will use
         # the default JSONifed readme file and send that into the channel instead.
-        usr_confirmation = ":white_check_mark: Creating README using uploaded config file"
 
         # The user has uploaded a config.
         if ctx.message.attachments != []:
@@ -37,15 +36,14 @@ class ReadmeCommands(commands.Cog, name="Readme"):
 
             json_config = load(BytesIO(message_attachment.save()))
 
-            await ctx.send(embed=usr_confirmation)
+            await ctx.send(":white_check_mark: Creating README using uploaded config file")
 
         # No config uploaded, just use default config file.
         else:
             with open("readme.json", "rb") as default_json:
                 json_config = load(default_json)
 
-            usr_confirmation = ":ballot_box_with_check: Creating README using default config file."
-            await ctx.send(usr_confirmation)
+            await ctx.send(":ballot_box_with_check: Creating README using default config file.")
 
         for section in json_config:
             # Initialise our message and embed variables each loop.
