@@ -3,7 +3,6 @@ from io import StringIO
 from json import load
 
 import discord
-from discord import Colour, Embed, File, Message
 from discord.ext import commands
 from aiohttp import ClientSession
 
@@ -44,7 +43,7 @@ class ReadmeCommands(commands.Cog, name="Readme"):
                         resp_text = await response.text()
 
             json_config = load(StringIO(resp_text))
-            await ctx.send(embed=usr_confirmation_embed)
+            await ctx.send(embed=usr_confirmation)
 
         # No config uploaded, just use default config file.
         else:
@@ -65,12 +64,12 @@ class ReadmeCommands(commands.Cog, name="Readme"):
 
             # We have an embed. Call in the Seahawks.
             if "embed" in json_config[section]:
-                current_embed = Embed()
+                current_embed = discord.Embed()
                 msg_embed = json_config[section]["embed"]
                 if "text" in msg_embed:
                     current_embed.description = msg_embed["text"]
                 if "color" in msg_embed:
-                    current_embed.colour = Colour(int(msg_embed["color"], 16))
+                    current_embed.colour = discord.Colour(int(msg_embed["color"], 16))
 
                 # Parse the fields, if there are any.
                 if "fields" in msg_embed:
@@ -105,7 +104,7 @@ class ReadmeCommands(commands.Cog, name="Readme"):
             requesting_user = await self.bot.get_user_info(ctx.message.author.id)
             await requesting_user.send(
                 content="Hey, here's your readme config file!",
-                file=File(raw_json, 'readme.json')
+                file=discord.File(raw_json, 'readme.json')
             )
             await ctx.send(":airplane: **Flying in, check your DMs!**")
 
