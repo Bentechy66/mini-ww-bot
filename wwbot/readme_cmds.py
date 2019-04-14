@@ -61,7 +61,7 @@ class ReadmeCommands(commands.Cog, name="Readme"):
                 if "text" in msg_embed:
                     current_embed.description = msg_embed["text"]
                 if "color" in msg_embed:
-                    current_embed.colour = discord.Colour(int(msg_embed["color"], 16))
+                    current_embed.colour = discord.Colour(msg_embed["color"])
 
                 # Parse the fields, if there are any.
                 if "fields" in msg_embed:

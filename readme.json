@@ -6,7 +6,7 @@
         "content": "Here's a quick rundown of the roles on this server!",
         "embed": {
             "title": "**Roles**",
-            "description": "```CSS\n- Game Master\n```The admins here, who help run and moderate the server!\n\n```md\n # Bot Developer / Past Bot Developer\n```(some of) The people who created and run the bots! Please don't spam their pings if something goes wrong with the bot, ping the Game Masters instead.\n\n```diff\n- Participant\n```People who are currently playing a game",
+            "text": "```CSS\n- Game Master\n```The admins here, who help run and moderate the server!\n\n```md\n# Bot Developer / Past Bot Developer\n```(some of) The people who created and run the bots! Please don't spam their pings if something goes wrong with the bot, ping the Game Masters instead.\n\n```diff\n- Participant\n```People who are currently playing a game",
             "color": 65280
         }
     },
@@ -14,7 +14,7 @@
     "part3": {
         "embed": {
             "title": "**Discriminatory Content**",
-            "description": "Discriminatory content is not and never will be condoned on the server. This means ALL racist imagery or remarks posted by anyone on the server is sufficient grounds for punishment by a moderator. This is not up for debate - offensive content is not allowed on this server in any form. If you are upset or offended by racist or derogatory content posted on this server, DM a moderator immediately. If you are unsure if your content 'counts' as offensive, do not post it, and DM a moderator if you want clarification.",
+            "text": "Discriminatory content is not and never will be condoned on the server. This means ALL racist imagery or remarks posted by anyone on the server is sufficient grounds for punishment by a moderator. This is not up for debate - offensive content is not allowed on this server in any form. If you are upset or offended by racist or derogatory content posted on this server, DM a moderator immediately. If you are unsure if your content 'counts' as offensive, do not post it, and DM a moderator if you want clarification.",
             "color": 16744192
         }
     },
@@ -23,7 +23,7 @@
         "content": "We would like to make it clear that all these rules are intended to make this server a friendly and welcoming place for everybody. We're all here to try and have some fun! Keep that in mind when considering your actions. :smiley:",
         "embed": {
             "title": "**Rules**",
-            "description": "```diff\n- No offensive messages or nicknames\n+ Anything that a reasonable person may find offensive.\n- No spam\n+ This includes, but is not limited to, @mention spam, message or image spam, or loud/obnoxious noises in voice channels.\n- No inappropriate content\n- No harassment\n+ Including sexual harassment or encouraging or harassment.\n- Use the appropriate channels\n\nIf you aim something at another member intended as a joke and they do not take it as so, just apologise and move on.\nDo not discuss any illegal activity on the server - remember that people's lives and careers have been impacted by messing with the wrong people or activities when they were young.\n\nThere may be situations not covered by the rules or times where the rule may not fit the situation. If this happens, the moderators are trusted to handle the situation appropriately, and reserve the right to take action as they see fit. If you have a complaint about a staff member, you can DM a complaint to another member of staff.\n```",
+            "text": "```diff\n- No offensive messages or nicknames\n+ Anything that a reasonable person may find offensive.\n- No spam\n+ This includes, but is not limited to, @mention spam, message or image spam, or loud/obnoxious noises in voice channels.\n- No inappropriate content\n- No harassment\n+ Including sexual harassment or encouraging or harassment.\n- Use the appropriate channels\n\nIf you aim something at another member intended as a joke and they do not take it as so, just apologise and move on.\nDo not discuss any illegal activity on the server - remember that people's lives and careers have been impacted by messing with the wrong people or activities when they were young.\n\nThere may be situations not covered by the rules or times where the rule may not fit the situation. If this happens, the moderators are trusted to handle the situation appropriately, and reserve the right to take action as they see fit. If you have a complaint about a staff member, you can DM a complaint to another member of staff.\n```",
             "color": 16711680
         }
     }
