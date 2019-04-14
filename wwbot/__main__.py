@@ -30,6 +30,7 @@ extensions = (
     "roles",
     "secret_channels",
     "cleanup",
+    "readme_cmds",
 )
 
 @bot.command()
